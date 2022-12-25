@@ -1,0 +1,11 @@
+Topic : Disjoint Job / Event / Interval Scheduling 
+Problem Statement : 
+Given n intervals / jobs / events each represented by a tuple - (start, end) where end >= start, select a subset of events / jobs / events such no two jobs / 
+events / interval in the selected subset overlap with each other.
+Required Optimization : The length of the subset should be maximum possible
+Note : Two events (start1, end1) and (start2, end2) are said to overlapping iff:(start2 < end1 and end2 > start2)
+
+Heursitic that always produces optimal solution : 
+Sort events / intervals / jobs in increasing order of end time. 
+Greedily select job that ends sooner and that is disjoint with the previously selected events.
+
