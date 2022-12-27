@@ -1,0 +1,29 @@
+Algorithm : Weighted Job / Event / Interval Scheduling (Greedy + Binary Search + Dynamic Programming)
+
+Problem Statement : Given N intervals labelled from 0 to n - 1 and each represented by tuple (start time, end time) where end time >= start time.
+An interval k is associated with a profit / weight of W[k].
+Objective : Maximise the total weight / profit by selecting a subset of disjoint intervals among N intervals.
+
+Note : Intervals are said to be disjiont iff : no two intervals overlap with each other.
+
+
+Approach : 
+Step 1 : Sort the intervals in increasing order of their end time.
+endTime(i) <= endTime(i+1) <= endTime(i+2) <= endTime(i+3) <= .... <= endTime(n-1)
+This is helpful for later stages in the algorithm.
+
+Step 2 : Dynamic Programming
+Let dp[i] give the maximum cost / profit made by optimally selecting intervals till endTime(i)
+An interval can be choosen or not choosen for the optimal solution.
+
+If interval k is not choosen then dp[k] = dp[k - 1]
+If interval k is choosen then dp[k] = W[k] + dp[m] where m is largest interval such that endTime(m) <= startTime(k)
+All intervals < m are also disjoint with interval i since e1 <= e2 <= <=...<= em <= startTime(k) (This is why sorting is necessary)
+Overlapping Subproblem : 
+dp[i] = max(dp[i - 1] + 0, W[i] + dp[m])
+Objective : Find dp[n - 1]
+
+Binary search can be implemented to find an interval with endTime <= start time of current interval 
+
+Time Complexity  : 0(n log n) Sorting time
+Space Complexity : 0(n)
