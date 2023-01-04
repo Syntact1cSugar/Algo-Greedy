@@ -1,0 +1,52 @@
+Problem Statement : 
+Given an array nums of n integer and an integer k. Return the maximum sum that is possible using the elements of the array after performing EXACTLY k negation.
+Negation operation implies choosing an index i and performing nums[i] = -nums[i]
+Note: Same index can be negated multiple number of times.
+
+
+
+Approach: 
+Sort the numbers in increasing order.
+
+Case 1: k <= count(negative numbers)
+Its optimal to negate all negative numbers in increasing order
+
+Case 2: k > count(negative numbers)
+If k%2 == 0 then some random element can be negated for k times such that its parity remains unchanged.
+If K%2 != 0 then one negation operation has to be applied on an element. Its optimal to choose the least positive number(since there are no negative numbers or 
+all the negative numbers have been negated). The least positive number must include the once that has be negated as well.
+Eg:
+nums = {-4, -3, -2, -1, 10, 20, 30}
+k = 5
+
+After Performing 4 negations
+nums = {4, 3, 2, 1, 10, 20, 30}
+k = 1
+
+now negate 1 and answer = 4 + 3 + 2 - 1 + 10 + 20 + 30
+
+
+Algorithm : MaximumSumAfterKNegations(nums, k)
+Sort(nums in increasion order)
+n = length(nums)
+sum = 0
+min_positive = +INFINITY
+//0(n) time:
+for i in range [0, n) do 
+  if nums[i] < 0 and K > 0 then 
+    nums[i] = -nums[i]
+    k = k - 1
+  end if
+  min_positive = min(min_positive, nums[i])
+  sum = sum + nums[i]
+end for
+
+//NOTE : min_poisitive is valid iff k > count(negative), otherwise its holds the largest negative number
+//Check whether k still persists
+if(k > 0 && k&2 == 1)
+{
+  sum = sum - min_positive + (-min_positive)
+}
+
+   
+return sum
